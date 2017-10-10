@@ -1,0 +1,19 @@
+%Title: wOBA Ratio
+%Author: McCafferty
+%This function takes the next four batters in the lineup and returns the
+%wOBA ratio 
+
+
+function [ ratio ] = wOBAratio( numOuts, wOBA1, wOBA2, wOBA3, wOBA4 )
+
+if numOuts == 0
+    teammate = .30*wOBA1 + .29*wOBA2 + .29*wOBA3 + .12*wOBA4;
+elseif numOuts == 1
+    teammate = .44*wOBA1 + .44*wOBA2 + .12*wOBA3;
+else
+    teammate = .85*wOBA1 + .15*wOBA2;
+end
+
+ratio = wOBA1 / teammate;
+end
+
