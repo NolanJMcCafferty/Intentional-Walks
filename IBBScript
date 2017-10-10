@@ -1,0 +1,41 @@
+%Title: IBB Script
+%Author: McCafferty
+%script for the program to decide if an intentional walk is a good idea
+%given a certain game situation and and lineup of batters
+%based on the data given in Chapter 10 of The Book by Tom Tango, Mitchel
+%Lightman, and Andrew Dolphin
+
+inning = input('Enter the inning (Examples: Top 1, Bot 6): ', 's');
+outs = input('Enter the number of outs: ');
+while (outs ~= 0 && outs ~= 1 && outs ~= 2)
+    outs = input('Not a valid number of outs, try again: ');
+end
+
+bases  = input('Enter the bases that are occupied (if second and third, inout 23): ');
+while (bases ~= 23 && bases ~= 2 && bases ~= 3 && bases ~= 13)
+    bases = input('Not a valid base state for an IBB, try again: ');
+end
+score = input('Enter how many runs your team is ahead by \n(if your team is behind, the number will be negative): ');
+
+wOBA1 = input('Enter the wOBA of the batter: ');
+wOBA2 = input('Enter the wOBA of the on deck better: ');
+wOBA3 = 0; wOBA4 = 0;
+if outs < 2 
+    wOBA3 = input('Enter the wOBA of the in-the-hole batter: ');
+end
+if outs < 1
+    wOBA4 = input('Enter the wOBA of the fourth batter: ');
+end
+
+ratio = wOBAratio(outs, wOBA1, wOBA2, wOBA3, wOBA4);
+min = minimumwOBA(inning, bases, outs, score);
+
+fprintf('The wOBA ratio is %g, and the minimum ration is %g\n', ratio, min);
+
+if ratio > min
+    disp('The intentional walk is a good idea here!')
+else
+    disp('The intentional walk is not a good idea here')
+end
+
+
